@@ -1,0 +1,34 @@
+#!/bin/bash
+user=$(who | grep -i -m 1 $1 | awk '{print $1}')
+console=$(who | grep -i -m 1 $1 | awk '{print $2}')
+
+if [ -z $user ]
+then
+	echo "$1 not logged"
+	echo "END"
+	exit
+else
+	plus=$(who -T | grep -i -m 1 $1 | awk '{print $2}')
+	if [ $plus != '+' ]
+	then
+		echo $(who -T | grep -i -m 1 $1 | awk '{print $2}')
+		echo "$1 is not allowing console messages"
+		echo "END"
+		exit
+	else
+		if [ -z $2 ]
+		then
+			echo "$1 sent no message"
+			echo "END"
+			exit
+		else
+			shift
+			while [ -n "$1" ]
+			do 
+				message=$message' '$1
+				shift
+			done
+			echo $message | write $user $console
+		fi
+	fi
+fi

@@ -1,0 +1,2 @@
+apt list
+dpkg-query -l

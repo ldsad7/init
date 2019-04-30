@@ -1,0 +1,3 @@
+broadcast=$(ifconfig en0 | awk '/broadcast/{print $6}')
+echo $broadcast
+ping $broadcast | arp -a | grep -v "^?" | grep -Eo "([0-9]{1,3}\.){3}[0-9]{1,3}"

@@ -1,0 +1,3 @@
+kill $(jobs -p)
+kill %100
+pkill tail
